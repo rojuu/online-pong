@@ -1,5 +1,4 @@
 # online-pong
-=============================
 Online pong made using node.js, express, socket.io and HTML5 canvas.
 
 ## Install guide
