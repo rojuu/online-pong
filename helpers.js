@@ -13,10 +13,10 @@ function vector(x = 0, y = 0) {
 			_y = y
 		},
 		setX: function(x) {
-			set(x, _y)
+			_x = x
 		},
 		setY: function(y) {
-			set(_x, y)
+			_y = y
 		}
 	}
 }

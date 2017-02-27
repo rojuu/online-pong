@@ -10,6 +10,12 @@ function newPaddle() {
 		setPosition: function(position) {
 			_position = position
 		},
+		width: function () {
+			return _width
+		},
+		height: function () {
+			return _height
+		},
 		render: function() {
 			ctx.beginPath()
 			//have pivot at the center
@@ -32,14 +38,18 @@ function newBall() {
 		setPosition: function(position) {
 			_position = position
 		},
+		translate: function(amountVector) {
+			_position.setX(_position.x() + amountVector.x())
+			_position.setY(_position.y() + amountVector.y())
+		},
 		radius: function() {
 			return _radius
 		},
 		render: function() {
 			ctx.beginPath()
 			//have pivot at the center
-			ctx.ellipse(_position.x() - _radius/2,
-					    _position.y() - _radius/2,
+			ctx.ellipse(_position.x(),
+					    _position.y(),
                         _radius, _radius,
                         0, 0, 2 * Math.PI)
 			ctx.fillStyle = "white"
