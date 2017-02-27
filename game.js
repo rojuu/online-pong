@@ -2,8 +2,8 @@
 //create the canvas
 const canvas = document.createElement("canvas")
 const ctx = canvas.getContext("2d")
-canvas.width = 480
-canvas.height = 640
+canvas.width = 640
+canvas.height = 480
 const width = canvas.width
 const height = canvas.height
 document.body.appendChild(canvas)
@@ -44,12 +44,16 @@ canvas.addEventListener("mousemove", function(event) {
 
 //assign global objects
 let ball = newBall()
-let paddle = newPaddle()
+let ourPaddle = newPaddle()
+let enemyPaddle = newPaddle()
+let ourScore = 0, enemyScore = 0
 
 //reset the game
 function reset() {
+	let paddleOffset = 30
     ball.setPosition(vector(width/2, height/2))
-    paddle.setPosition(vector(width/2, height - 30))
+    ourPaddle.setPosition(vector(0 + paddleOffset, height/2))
+	enemyPaddle.setPosition(vector(width - paddleOffset, height/2))
 }
 
 //update game objects
@@ -58,8 +62,7 @@ function update(deltaTime) {
 	// 	console.log(keysDown)
 	// }
 
-    paddle.setPosition(vector(mousePos.x(), paddle.position().y()))
-
+    ourPaddle.setPosition(vector(ourPaddle.position().x(), mousePos.y()))
 }
 
 //draw everything
@@ -73,10 +76,27 @@ function render() {
 	ctx.rect(0, 0, width, height)
 	ctx.fillStyle = "black"
 	ctx.fill()
+
+	//bg dash lines
+	for(let i = 0; i < height; i += 20) {
+		ctx.beginPath()
+		let w = 4, h = 7
+		ctx.rect(width/2 - w/2, i + 5, w, h)
+		ctx.fillStyle = "white"
+		ctx.fill()
+	}
 	
+	//scores
+	let scoreOffsetX = 92;
+	let scoreOffsetY = 42;
+	ctx.font = "30px Helvetica"
+	ctx.fillText(ourScore, 0 + scoreOffsetX, 0 + scoreOffsetY, 50)
+	ctx.fillText(enemyScore, width - scoreOffsetX, 0 + scoreOffsetY, 50)
+
     //game objects
 	ball.render()
-	paddle.render()
+	ourPaddle.render()
+	enemyPaddle.render()
 }
 
 //main game loop
@@ -104,3 +124,7 @@ const requestAnimationFrame =
 let lastTime = Date.now()
 reset()
 main()
+
+// setInterval( () => {
+// 	//send state data to server
+// }, 1000/60) //60 times per second

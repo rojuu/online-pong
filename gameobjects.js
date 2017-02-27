@@ -2,7 +2,7 @@
 //have variables like: let paddle = newPaddle()
 function newPaddle() {
 	let _position = vector()
-	let _width = 130, _height = 16
+	let _width = 10, _height = 78
 	return {
 		position: function() {
 			return _position
@@ -24,7 +24,7 @@ function newPaddle() {
 
 function newBall() {
 	let _position = vector()
-	let _radius = 10
+	let _radius = 6
 	return {
 		position: function() {
 			return _position
@@ -37,6 +37,7 @@ function newBall() {
 		},
 		render: function() {
 			ctx.beginPath()
+			//have pivot at the center
 			ctx.ellipse(_position.x() - _radius/2,
 					    _position.y() - _radius/2,
                         _radius, _radius,

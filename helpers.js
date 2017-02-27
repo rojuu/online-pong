@@ -20,3 +20,7 @@ function vector(x = 0, y = 0) {
 		}
 	}
 }
+
+function lerp(A, B, t) {
+	return A + t * (B - A)
+}
