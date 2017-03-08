@@ -58,7 +58,7 @@ function reset() {
 
 let lerpTime = 0.4
 let currentLerpTime = 0
-let ballSpeed = vector(0, 0)
+let ballSpeed = vector(-0, 0)
 //update game objects
 function update(deltaTime) {
 	// if(Object.keys(keysDown).length != 0){
@@ -73,16 +73,35 @@ function update(deltaTime) {
 	}
 	
 	ball.translate(vector(ballSpeed.x * deltaTime, ballSpeed.y * deltaTime))
-	if( //check ball collisions
+
+	if( 
+		( //going left
+			//x-axis checks
+			mousePos.x < enemyPaddle.position.x + enemyPaddle.width / 2
+			&& ( //y-axis checks
+				mousePos.y > enemyPaddle.position.y - enemyPaddle.height / 2
+				|| mousePos.y < enemyPaddle.position.y + enemyPaddle.height / 2
+			)
+		)
+	){
+		console.log("mouse in paddle!")
+	}
+	//check ball collisions
+	if( 
 		( //going left
 			//x-axis checks
 			ball.position.x - ball.radius < ourPaddle.position.x + ourPaddle.width / 2
 			&& ( //y-axis checks
-				ball.position.y + ball.radius > ourPaddle.position.y - ourPaddle.height/ 2
+				ball.position.y + ball.radius > ourPaddle.position.y - ourPaddle.height / 2
 				|| ball.position.y - ball.radius < ourPaddle.position.y + ourPaddle.height / 2
 			)
 		)
-		||
+	){
+		console.log("ball collided!")
+		ballSpeed.x = ballSpeed.x * -1
+	}
+	
+	else if(
 		( //going right
 			//x-axis checks
 			ball.position.x + ball.radius > enemyPaddle.position.x - enemyPaddle.width / 2
