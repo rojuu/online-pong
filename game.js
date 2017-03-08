@@ -65,35 +65,35 @@ function update(deltaTime) {
 	// 	console.log(keysDown)
 	// }
 
-    ourPaddle.setPosition(vector(ourPaddle.position().x(), mousePos.y()))
+    ourPaddle.setPosition(vector(ourPaddle.position.x, mousePos.y))
 	if(currentLerpTime = 0){
-		let y = enemyPaddle.position().y()
-		y = ball.position().y()
-		enemyPaddle.setPosition(vector(enemyPaddle.position().x(), y))
+		let y = enemyPaddle.position.y
+		y = ball.position.y
+		enemyPaddle.setPosition(vector(enemyPaddle.position.x, y))
 	}
 	
-	ball.translate(vector(ballSpeed.x() * deltaTime, ballSpeed.y() * deltaTime))
+	ball.translate(vector(ballSpeed.x * deltaTime, ballSpeed.y * deltaTime))
 	if( //check ball collisions
 		( //going left
 			//x-axis checks
-			ball.position().x() - ball.radius() < ourPaddle.position().x() + ourPaddle.width() / 2
+			ball.position.x - ball.radius < ourPaddle.position.x + ourPaddle.width / 2
 			&& ( //y-axis checks
-				ball.position().y() + ball.radius() > ourPaddle.position().y() - ourPaddle.height() / 2
-				|| ball.position().y() - ball.radius() < ourPaddle.position().y() + ourPaddle.height() / 2
+				ball.position.y + ball.radius > ourPaddle.position.y - ourPaddle.height/ 2
+				|| ball.position.y - ball.radius < ourPaddle.position.y + ourPaddle.height / 2
 			)
 		)
 		||
 		( //going right
 			//x-axis checks
-			ball.position().x() + ball.radius() > enemyPaddle.position().x() - enemyPaddle.width() / 2
+			ball.position.x + ball.radius > enemyPaddle.position.x - enemyPaddle.width / 2
 			&& ( //y-axis checks
-				ball.position().y() + ball.radius() > enemyPaddle.position().y() - enemyPaddle.height() / 2
-				|| ball.position().y() - ball.radius() < enemyPaddle.position().y() + enemyPaddle.height() / 2
+				ball.position.y + ball.radius > enemyPaddle.position.y - enemyPaddle.height / 2
+				|| ball.position.y - ball.radius < enemyPaddle.position.y + enemyPaddle.height / 2
 			)
 		)
 	){
 		console.log("ball collided!")
-		ballSpeed.setX(ballSpeed.x() * -1)
+		ballSpeed.x = ballSpeed.x * -1
 	}
 }
 

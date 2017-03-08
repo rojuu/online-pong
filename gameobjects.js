@@ -4,23 +4,23 @@ function newPaddle() {
 	let _position = vector()
 	let _width = 10, _height = 78
 	return {
-		position: function() {
+		get position() {
 			return _position
 		},
 		setPosition: function(position) {
 			_position = position
 		},
-		width: function () {
+		get width() {
 			return _width
 		},
-		height: function () {
+		get height() {
 			return _height
 		},
 		render: function() {
 			ctx.beginPath()
 			//have pivot at the center
-			ctx.rect(_position.x() - _width/2,
-					 _position.y() - _height/2,
+			ctx.rect(_position.x - _width/2,
+					 _position.y - _height/2,
 					 _width, _height)
 			ctx.fillStyle = "white"
 			ctx.fill()
@@ -32,24 +32,24 @@ function newBall() {
 	let _position = vector()
 	let _radius = 6
 	return {
-		position: function() {
+		get position() {
 			return _position
 		},
 		setPosition: function(position) {
 			_position = position
 		},
 		translate: function(amountVector) {
-			_position.setX(_position.x() + amountVector.x())
-			_position.setY(_position.y() + amountVector.y())
+			_position.x = _position.x + amountVector.x
+			_position.y = _position.y + amountVector.y
 		},
-		radius: function() {
+		get radius() {
 			return _radius
 		},
 		render: function() {
 			ctx.beginPath()
 			//have pivot at the center
-			ctx.ellipse(_position.x(),
-					    _position.y(),
+			ctx.ellipse(_position.x,
+					    _position.y,
                         _radius, _radius,
                         0, 0, 2 * Math.PI)
 			ctx.fillStyle = "white"

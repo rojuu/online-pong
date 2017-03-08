@@ -2,21 +2,21 @@ function vector(x = 0, y = 0) {
 	let _x = x,
 		_y = y
 	return {
-		x: function() {
+		get x() {
 			return _x
 		},
-		y: function() {
+		get y() {
 			return _y
 		},
-		set: function(x, y) {
-			_x = x
-			_y = y
+		set y(val) {
+			_y = val
 		},
-		setX: function(x) {
-			_x = x
+		set x(val) {
+			_x = val
 		},
-		setY: function(y) {
-			_y = y
+		set: function(xPos, yPos) {
+			this.x = xPos;
+			this.y = yPos;
 		}
 	}
 }
