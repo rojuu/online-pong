@@ -8,13 +8,6 @@ const width = canvas.width;
 const height = canvas.height;
 document.body.appendChild(canvas);
 
-//background image
-// let bgReady = false
-// let bgImage = new Image()
-// bgImage.onload = function () {
-// 	bgReady = true
-// }
-
 //handle keyboard controls
 let keysDown = {};
 
@@ -48,20 +41,24 @@ let ourPaddle = newPaddle();
 let enemyPaddle = newPaddle();
 let ourScore = 0, enemyScore = 0;
 
+let lerpTime;
+let currentLerpTime;
+
 //reset the game
 function reset() {
 	let paddleOffset = 30;
     ball.setPosition(vector(width/2, height/2));
+	ball.velocity = vector(-300, 0);
+
     ourPaddle.setPosition(vector(0 + paddleOffset, height/2));
 	enemyPaddle.setPosition(vector(width - paddleOffset, height/2));
+
+	lerpTime = 0.4;
+	currentLerpTime = 0;
 }
 
-let lerpTime = 0.4;
-let currentLerpTime = 0;
-let ballSpeed = vector(-300, 0);
 //update game objects
 function update(deltaTime) {
-
     ourPaddle.setPosition(vector(ourPaddle.position.x, mousePos.y));
 	if(currentLerpTime = 0){
 		let y = enemyPaddle.position.y;
@@ -69,38 +66,56 @@ function update(deltaTime) {
 		enemyPaddle.setPosition(vector(enemyPaddle.position.x, y));
 	}
 	
-	ball.translate(vector(ballSpeed.x * deltaTime, ballSpeed.y * deltaTime));
+	ball.translate(vector(ball.velocity.x * deltaTime, ball.velocity.y * deltaTime));
 
 	//check ball collisions
+	doCollisions(ball, ourPaddle);
+	doCollisions(ball, enemyPaddle);
+
+	if(checkCollisionWallX(ball))
+		ball.velocity.x = ball.velocity.x * -1;
+		
+	if(checkCollisionWallY(ball))
+		ball.velocity.y = ball.velocity.y * -1;
+}
+
+function doCollisions(ball, paddle) {
+	if(checkCollisions(ball, paddle)) {
+		ball.velocity.x = ball.velocity.x * -1.1;
+		let dv = ball.position.y - paddle.position.y;
+		ball.velocity.y = dv * 2.5;
+	}
+}
+
+function checkCollisions(ball, paddle) {
 	if( 
 		( //going left
 			//x-axis checks
-			ball.position.x - ball.radius < ourPaddle.position.x + ourPaddle.width / 2
-			&& ball.position.x + ball.radius > ourPaddle.position.x - ourPaddle.width / 2
+			ball.position.x - ball.radius < paddle.position.x + paddle.width / 2
+			&& ball.position.x + ball.radius > paddle.position.x - paddle.width / 2
 			&& ( //y-axis checks
-				ball.position.y + ball.radius > ourPaddle.position.y - ourPaddle.height / 2
-				&& ball.position.y - ball.radius < ourPaddle.position.y + ourPaddle.height / 2
+				ball.position.y + ball.radius > paddle.position.y - paddle.height / 2
+				&& ball.position.y - ball.radius < paddle.position.y + paddle.height / 2
 			)
 		)
 	){
-		console.log("ball collided!");
-		ballSpeed.x = ballSpeed.x * -1;
+		return true;
 	}
-	
-	else if(
-		( //going right
-			//x-axis checks
-			ball.position.x + ball.radius > enemyPaddle.position.x - enemyPaddle.width / 2
-			&& ball.position.x - ball.radius < enemyPaddle.position.x + enemyPaddle.width / 2
-			&& ( //y-axis checks
-				ball.position.y + ball.radius > enemyPaddle.position.y - enemyPaddle.height / 2
-				&& ball.position.y - ball.radius < enemyPaddle.position.y + enemyPaddle.height / 2
-			)
-		)
-	){
-		console.log("ball collided!");
-		ballSpeed.x = ballSpeed.x * -1;
+	return false;
+}
+
+function checkCollisionWallX(ball) {
+	if(ball.position.x + ball.radius > width || ball.position.x - ball.radius < 0) {
+		return true;
 	}
+	return false;
+}
+
+function checkCollisionWallY(ball) {
+	if(ball.position.y + ball.radius > height || ball.position.y - ball.radius < 0) {
+		return true;
+	}
+	return false;
 }
 
 //draw everything

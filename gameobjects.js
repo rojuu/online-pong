@@ -30,6 +30,7 @@ function newPaddle() {
 
 function newBall() {
 	let _position = vector();
+	let _velocity = vector();
 	let _radius = 6;
 	return {
 		get position() {
@@ -41,6 +42,12 @@ function newBall() {
 		translate: function(amountVector) {
 			_position.x = _position.x + amountVector.x;
 			_position.y = _position.y + amountVector.y;
+		},
+		get velocity() {
+			return _velocity
+		},
+		set velocity(velocity) {
+			_velocity = velocity;
 		},
 		get radius() {
 			return _radius;
