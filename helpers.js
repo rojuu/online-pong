@@ -1,18 +1,18 @@
 function vector(x = 0, y = 0) {
 	let _x = x,
-		_y = y
+		_y = y;
 	return {
 		get x() {
-			return _x
+			return _x;
 		},
 		get y() {
-			return _y
+			return _y;
 		},
 		set y(val) {
-			_y = val
+			_y = val;
 		},
 		set x(val) {
-			_x = val
+			_x = val;
 		},
 		set: function(xPos, yPos) {
 			this.x = xPos;
@@ -22,5 +22,5 @@ function vector(x = 0, y = 0) {
 }
 
 function lerp(A, B, t) {
-	return A + t * (B - A)
+	return A + t * (B - A);
 }
