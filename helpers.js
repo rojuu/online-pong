@@ -17,6 +17,19 @@ function vector(x = 0, y = 0) {
 		set: function(xPos, yPos) {
 			this.x = xPos;
 			this.y = yPos;
+		},
+		add: function(vector) {
+			_x = _x + vector.x;
+			_y = _y + vector.y;
+		},
+		subtract: function(vector) {
+			_x = _x - vector.x;
+			_y = _y - vector.y;
+		},
+		length: function () {
+			let val = Math.sqrt(_x*_x + _y*_y);
+			val = Math.abs(val);
+			return val;
 		}
 	}
 }

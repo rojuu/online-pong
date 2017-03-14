@@ -69,22 +69,25 @@ function update(deltaTime) {
 	ball.translate(vector(ball.velocity.x * deltaTime, ball.velocity.y * deltaTime));
 
 	//check ball collisions
-	doCollisions(ball, ourPaddle);
-	doCollisions(ball, enemyPaddle);
-
-	if(checkCollisionWallX(ball))
-		ball.velocity.x = ball.velocity.x * -1;
-		
-	if(checkCollisionWallY(ball))
-		ball.velocity.y = ball.velocity.y * -1;
+	doPaddleCollisions(ball, ourPaddle);
+	doPaddleCollisions(ball, enemyPaddle);
+	doWallCollisions(ball);
 }
 
-function doCollisions(ball, paddle) {
+function doPaddleCollisions(ball, paddle) {
 	if(checkCollisions(ball, paddle)) {
 		ball.velocity.x = ball.velocity.x * -1.1;
 		let dv = ball.position.y - paddle.position.y;
 		ball.velocity.y = dv * 2.5;
 	}
+}
+
+function doWallCollisions(ball) {
+	if(checkCollisionWallX(ball))
+		ball.velocity.x = ball.velocity.x * -1;
+		
+	if(checkCollisionWallY(ball))
+		ball.velocity.y = ball.velocity.y * -1;
 }
 
 function checkCollisions(ball, paddle) {

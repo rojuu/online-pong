@@ -9,7 +9,7 @@ const verbose = true;
 
 server.listen(gameport);
 
-console.log('listening on *:3000');
+console.log('listening on *:' + gameport);
 
 // express setup
 app.get('/', function(req, res){
