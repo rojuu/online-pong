@@ -1,5 +1,5 @@
 # online-pong
-Online pong made using node.js v6.10.0 LTS, express, socket.io and HTML5 canvas.
+Online pong made using node.js v6.10 LTS, express, socket.io and HTML5 canvas.
 
 ## Install guide
 * Get node.js
