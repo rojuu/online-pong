@@ -22,6 +22,15 @@
 	</head>
 	<body>
 		<center><h1>Online-pong<h1></center>
+
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript">
+			var socket = io.connect('/');
+			socket.on('onconnected', function( data ) {
+		  		console.log( 'Connected successfully to the socket.io server. My server side ID is: ' + data.id );
+		  	});
+		</script>
+
     	<script src="helpers.js"></script>
     	<script src="gameobjects.js"></script>
 		<script src="game.js"></script>

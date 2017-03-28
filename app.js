@@ -5,7 +5,7 @@ const io = require('socket.io');
 const UUID = require('node-uuid');
 const server = http.Server(app);
 
-const verbose = true;
+const verbose = false;
 
 server.listen(gameport);
 
@@ -14,7 +14,7 @@ console.log('listening on *:' + gameport);
 // express setup
 app.get('/', function(req, res){
     //send the index.html for the client
-    console.log('trying to load %s', __dirname + '/index.html');
+    if (verbose) console.log('trying to load %s', __dirname + '/index.html');
     res.sendFile(__dirname + "/index.html");
 });
 
